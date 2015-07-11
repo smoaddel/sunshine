@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -29,28 +32,52 @@ public class ForecastFragment extends Fragment {
 
     ArrayAdapter<String> forecastList;
 
+
     public ForecastFragment() {
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            try {
+                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?zip=47401&mode=json&units=metric&cnt=7");
+                FetchWeatherTask fwt = new FetchWeatherTask();
+                fwt.execute(url);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // This is to give this fragment menu options.
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.forecastfragment, menu);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         String[] fakeData = {
-                "Today - Sunny - 81 / 59",
-                "Tomorrow - Cloudy - 81 / 59",
                 "Tuesday - Rainy - 61 / 49",
                 "Wednesday - Sunny - 81 / 62",
                 "Thursday - Sunny - 78 / 59",
                 "Friday - Sunny - 84 / 57",
                 "Saturday - Windy - 50 / 39",
-                "Sunday - Clear - 70 / 55",
-                "Monday - Rainy - 50 / 40",
-                "Tuesday - Rainy - 61 / 49",
                 "Wednesday - Sunny - 81 / 62",
                 "Thursday - Sunny - 78 / 59",
                 "Friday - Sunny - 84 / 57",
-                "Saturday - Windy - 50 / 39",
-                "Sunday - Clear - 70 / 55",
                 "Monday - Rainy - 50 / 40"
         };
 
@@ -67,18 +94,20 @@ public class ForecastFragment extends Fragment {
         ListView listView = (ListView) rootView.findViewById(R.id.listView_forecast);
         listView.setAdapter(forecastList);
 
-        try {
-            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
-
-            new FetchWeatherTask().execute(url);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+//
+//            new FetchWeatherTask().execute(url);
+//
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
 
 
         return rootView;
     }
+
+
     public class FetchWeatherTask extends AsyncTask<URL, Void, String>{
 
         @Override
@@ -126,6 +155,7 @@ public class ForecastFragment extends Fragment {
                     forecastJsonStr = null;
                 }
                 forecastJsonStr = buffer.toString();
+                Log.v("Response from API",forecastJsonStr);
             } catch (IOException e) {
                 Log.e("PlaceholderFragment", "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attempting
