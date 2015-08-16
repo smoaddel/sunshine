@@ -1,5 +1,6 @@
 package io.saeed.sunshine;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import 	android.text.format.Time;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -103,9 +104,12 @@ public class ForecastFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String forecast = forecastList.getItem(position);
-                Toast toast = new Toast(getActivity());
-                toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
-//                toast.setText("This is a toast!");
+                Intent detailIntent = new Intent(getActivity(), DetailActivity.class)
+                        .putExtra(Intent.EXTRA_TEXT, forecast);
+                startActivity(detailIntent);
+
+//                Toast toast = new Toast(getActivity());
+//                toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
             }
         });
 
