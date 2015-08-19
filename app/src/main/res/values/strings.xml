@@ -10,4 +10,8 @@
     <string name="pref_location_key" translatable="false">Location</string>
     <string name="pref_location_label">Location</string>
     <string name="pref_location_default" translatable="false">47401</string>
+
+    <string name="pref_temp_key" translatable="false">Unit</string>
+    <string name="pref_temp_label">Unit</string>
+    <string name="pref_temp_default" translatable="false">metric</string>
 </resources>
