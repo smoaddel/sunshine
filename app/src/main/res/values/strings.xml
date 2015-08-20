@@ -14,4 +14,7 @@
     <string name="pref_temp_key" translatable="false">Unit</string>
     <string name="pref_temp_label">Unit</string>
     <string name="pref_temp_default" translatable="false">metric</string>
+
+    <string name="action_map">Show on Map</string>
+    <string name="menu_item_share">Share</string>
 </resources>
