@@ -17,17 +17,51 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(LOG_TAG, "Called onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /* From their github
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
-         */
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.container, new ForecastFragment())
+//                    .commit();
+//        }
     }
 
+    @Override
+    protected void onStop() {
+        Log.d(LOG_TAG, "Called onStop()");
+        super.onStop();
+    }
+
+    @Override
+    protected void onPostResume() {
+        Log.d(LOG_TAG, "Called onPostResume()");
+        super.onPostResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(LOG_TAG, "Called onDestroy()");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d(LOG_TAG, "Called onStart()");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(LOG_TAG, "Called onResume()");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(LOG_TAG, "Called onPause()");
+        super.onPause();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
